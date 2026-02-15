@@ -1,0 +1,10 @@
+{
+  "name": "codex-plan-reviewer",
+  "description": "Two-pass adversarial review of design documents and implementation plans using OpenAI Codex CLI",
+  "version": "1.0.0",
+  "author": {
+    "name": "kroepke"
+  },
+  "repository": "https://github.com/kroepke/codex-plan-reviewer",
+  "keywords": ["review", "planning", "codex", "adversarial"]
+}

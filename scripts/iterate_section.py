@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Iteratively review and refine a single section using Codex session resume.
 
-Usage: python iterate_section.py <section-file> <revised-section-file> [review-type] [max-rounds]
+Usage: python3 iterate_section.py <section-file> <revised-section-file> [review-type] [max-rounds]
 
 Interactive mode (default): pauses between rounds for you to edit the revised file.
 Non-interactive mode (--no-interactive): runs all rounds without pausing, expects
@@ -73,10 +73,6 @@ def run_codex(
             timeout=timeout,
             shell=use_shell,
             encoding="utf-8",
-        )
-        return result.stdout.strip()
-            timeout=timeout,
-            shell=use_shell,
         )
         return result.stdout.strip()
     except subprocess.TimeoutExpired:

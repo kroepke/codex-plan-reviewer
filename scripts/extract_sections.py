@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Extract sections from a markdown document for individual review.
 
-Usage: python extract_sections.py <plan-file>
+Usage: python3 extract_sections.py <plan-file>
 
 Creates .codex-review/sections/ with one file per top-level section.
 Each section file includes the document title and TOC as context.
@@ -46,10 +46,15 @@ def extract_sections(plan_path: Path) -> list[dict]:
     context += "*The following is one section from the above document, extracted for focused review.*\n"
     context += "---\n\n"
 
-    # Try splitting on H2 first
+    # Try splitting on H2 first, then H3, then H1
     sections = _split_on_heading(lines, level=2, title=title)
 
-    # Fall back to H1 if no H2 sections found
+    # Fall back to H3 if no H2 sections found (common in implementation plans
+    # that use ### Task N headers)
+    if not sections:
+        sections = _split_on_heading(lines, level=3, title=title)
+
+    # Fall back to H1 if no H2 or H3 sections found
     if not sections:
         sections = _split_on_heading(lines, level=1, title=title)
 
@@ -112,7 +117,7 @@ def sanitize_filename(name: str) -> str:
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python extract_sections.py <plan-file>", file=sys.stderr)
+        print("Usage: python3 extract_sections.py <plan-file>", file=sys.stderr)
         sys.exit(1)
 
     plan_path = Path(sys.argv[1])

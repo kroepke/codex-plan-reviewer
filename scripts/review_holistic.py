@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Invoke Codex for a full-document holistic review (pass 2).
 
-Usage: python review_holistic.py <plan-file> [pass1-feedback-dir]
+Usage: python3 review_holistic.py <plan-file> [pass1-feedback-dir]
 
 If pass1-feedback-dir is provided, the holistic review includes pass 1 findings
 so Codex can verify they were addressed.
@@ -56,13 +56,6 @@ def run_codex(prompt: str, timeout: int, model: str | None = None, verbose: bool
             encoding="utf-8",
         )
         return result.stdout.strip()
-            stdout=subprocess.PIPE,
-            stderr=None if verbose else subprocess.DEVNULL,
-            text=True,
-            timeout=timeout,
-            shell=use_shell,
-        )
-        return result.stdout.strip()
     except subprocess.TimeoutExpired:
         raise TimeoutError(f"Codex timed out after {timeout}s")
     except FileNotFoundError:
@@ -72,7 +65,7 @@ def run_codex(prompt: str, timeout: int, model: str | None = None, verbose: bool
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python review_holistic.py <plan-file> [pass1-feedback-dir]", file=sys.stderr)
+        print("Usage: python3 review_holistic.py <plan-file> [pass1-feedback-dir]", file=sys.stderr)
         sys.exit(1)
 
     plan_path = Path(sys.argv[1])

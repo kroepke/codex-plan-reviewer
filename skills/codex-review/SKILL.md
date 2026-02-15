@@ -42,7 +42,7 @@ Before invoking any review, ensure:
 Split the document into reviewable sections. Use the `scripts/extract-sections.sh` script:
 
 ```bash
-python /path/to/codex-review/scripts/extract_sections.py <plan-file>
+python3 /path/to/codex-review/scripts/extract_sections.py <plan-file>
 ```
 
 This creates a `.codex-review/sections/` directory with individual section files. Each file contains the section content plus minimal surrounding context (the document title and table of contents if present) so Codex can understand where the section fits.
@@ -52,7 +52,7 @@ This creates a `.codex-review/sections/` directory with individual section files
 For each section, invoke Codex with the section review prompt:
 
 ```bash
-python /path/to/codex-review/scripts/review_section.py <section-file> [review-type]
+python3 /path/to/codex-review/scripts/review_section.py <section-file> [review-type]
 ```
 
 Where `review-type` is one of:
@@ -75,7 +75,7 @@ Each section review produces a structured feedback file in `.codex-review/feedba
 After revisions, invoke the holistic review on the full (revised) document:
 
 ```bash
-python /path/to/codex-review/scripts/review_holistic.py <plan-file> <pass1-feedback-dir>
+python3 /path/to/codex-review/scripts/review_holistic.py <plan-file> <pass1-feedback-dir>
 ```
 
 This pass specifically looks for:
@@ -117,7 +117,7 @@ The skill respects these environment variables:
 If pass 1 reveals major issues in a specific section, use the iteration script to do focused multi-round review using Codex session resume:
 
 ```bash
-python /path/to/codex-review/scripts/iterate_section.py <section-file> <revised-section-file> [review-type] [max-rounds]
+python3 /path/to/codex-review/scripts/iterate_section.py <section-file> <revised-section-file> [review-type] [max-rounds]
 ```
 
 **How it works:**
@@ -136,10 +136,10 @@ python /path/to/codex-review/scripts/iterate_section.py <section-file> <revised-
 Example Claude Code workflow:
 ```bash
 # Round 1
-python scripts/iterate_section.py sections/03-data-model.md revised.md data --round 1
+python3 scripts/iterate_section.py sections/03-data-model.md revised.md data --round 1
 # Claude reads feedback, revises revised.md
 # Round 2
-python scripts/iterate_section.py sections/03-data-model.md revised.md data --round 2
+python3 scripts/iterate_section.py sections/03-data-model.md revised.md data --round 2
 ```
 
 **Convergence detection:** The script tracks issue counts across rounds. If issues stop decreasing after 3+ rounds, it warns that manual review may be needed.

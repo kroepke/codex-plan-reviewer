@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Invoke Codex to review a single section of a design document.
 
-Usage: python review_section.py <section-file> [review-type]
+Usage: python3 review_section.py <section-file> [review-type]
 review-type: architecture (default), implementation, api, data
 """
 
@@ -65,7 +65,7 @@ def run_codex(prompt: str, timeout: int, model: str | None = None, verbose: bool
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python review_section.py <section-file> [review-type]", file=sys.stderr)
+        print("Usage: python3 review_section.py <section-file> [review-type]", file=sys.stderr)
         sys.exit(1)
 
     section_path = Path(sys.argv[1])
